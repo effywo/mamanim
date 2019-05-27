@@ -77,7 +77,7 @@ public class Ex14 {
         //time complexity = O(n) n to find sum of the given array, n to find the
         // first odd sum from the two ends then returns the length minus i is the
         // longest sub array =O(2n)which is O(n)
-        //storage complexity = O(1) all variables created are constant(sum, i,i)
+        //memory complexity = O(1) all variables created are constant(sum, i,i)
         int sum=0;
         for (int i=0;i<a.length;i++){
             sum+=a[i];
