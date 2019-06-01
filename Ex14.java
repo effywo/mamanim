@@ -1,21 +1,57 @@
+/**
+ * Maman 14, answer to questions 1-4
+ * 
+ * @author effywo
+ * @version 01.06.2019
+ */
 public class Ex14 {
 
+    /**
+     *  Prints all possible variations of "x1+x2+x3=num" num is the given number, where x is 10 or less
+     * @param num to print all possibilities for the equation
+     * @return the amount of variations possible
+     */
     public static int solutions(int num){
+        //ANSWER TO QUESTION 3:
+        //if num is less then 3 then equation is not possible
+        //if num is greater then 30 then equation must include x greater then 10 which isn't valid
         if(num<3||num>30){
             return 0;
         }
-        //int x1,x2,x3;
-        //return 1+ solution(num,x1,x2,x3);
-
-
-        return 1;
+        //defining variables
+        int x1=1,x2 =1,x3=1;int count=0; //count is the counter for all equation matches found
+        //recursive method call to loop through all x possibilities
+        return solutions(count,num,x1,x2,x3);
     }
 
-    private static int solution(int num, int x1, int x2, int x3){
-        if(num==1){
-            return 0;
+    private static int solutions(int count,int num, int x1, int x2, int x3) {
+        //private method to be called from public override method
+        //recursive method that checks for the amount of variations of "x1+x2+x3=mun" where x is less then 10
+        //the method loops through all x1+x2+x3 to check if the match num if match found prints the equation and adds up counter
+        //count to hod the count of solutions found, num the given number to check, x1,x2,x3 x values to check equations
+        //checking if a equation match is found
+        
+        if (x1 + x2 + x3 == num) {
+            //printing the equation and add to counter
+            System.out.println(x1 + "+" + x2 + "+" + x3);
+            count++;}
+        if (x3 < 10) { //adding 1 to x1 value until 10 is reached
+            x3 += 1;
+            return solutions(count, num, x1, x2, x3);//recursive call with the new value of x1
+        } else { // if reached 10 then resets x1 and moves on to x2
+            x3 = 1;
         }
-        return 1 + solution(num-1,x1,x2,x3);
+        if (x2 < 10) { //adding 1 to x2 until 10 is reached
+            x2 += 1;
+            return solutions(count, num, x1, x2, x3); //recursive call with new x2 value to loop through all x1 values possible
+        } else { //if 10 is reached resets x2 on moves on to x3
+            x2 = 1;
+        }
+        if (x1 < 10) { //add 1 to x3 until 10 is reached
+            x1 += 1;
+            return solutions(count, num, x1, x2, x3); // recursive call with new x3 value to loop through all x1 and x2 values possible
+        }//when 10 is reached the solutions is found and returns the counter
+        return count;
     }
 
     /**
@@ -25,6 +61,7 @@ public class Ex14 {
      * @return the water capacity of the array
      */
     public static int waterVolume(int[] heights){
+        //ANSWER TO QUESTION 1:
         //to calculate the amount of water the bucket can hold first find the highest point ofthe bucket
         //then start from the right wall and add all point that are less then the wall when the point is larger then the wall
         //then the wall is updated to the new high wall and continues to add point less then the wall till it gets to the highestpoint
@@ -65,19 +102,20 @@ public class Ex14 {
         return totalCapacity;
     }
 
-
     /**
      * returns the length of the longest sub array that its sum is even
-     * @param a array to check its
-     * @return the the length of the longest sub array that its sum is even
+     * original method time complexity of O(n^3) for every sub array O(n^2) f()calculates the sum O(n)total of O(n^3)
+     * original method memory complexity of O(1) Explained: int C is defined inside the double loop but overwritten everytime.
+     * the method returns the longest sub array that its sum is even
+     * final method time complexity = O(n) explained:
+     * n to find sum of the given array a[], n to find the first odd number from the two ends then returns the length minus i which is the
+     * longest sub array =O(2n)which is considered O(n)
+     * final method memory complexity = O(1) all variables created are constant(sum, i,i)
+     * @param a array to check for its longest sub array that its sum is even
+     * @return the length of the longest sub array that its sum is even
      */
     public static int what(int a[]){
-        //original method time complexity of O(n^3) for every sub array O(n^2) f()calculates the sum O(n)total of O(n^3)
-        //the method returns the longest sub array that its sum is even
-        //time complexity = O(n) n to find sum of the given array, n to find the
-        // first odd sum from the two ends then returns the length minus i is the
-        // longest sub array =O(2n)which is O(n)
-        //memory complexity = O(1) all variables created are constant(sum, i,i)
+        //ANSWER TO QUESTION 2:
         int sum=0;
         for (int i=0;i<a.length;i++){
             sum+=a[i];
@@ -86,9 +124,9 @@ public class Ex14 {
             return a.length;
         for (int i=0;i<a.length/2;i++){
             if(a[i]%2!=0||a[a.length-i-1]%2!=0) {
-            // if ((a[i]+a[a.length-1-i])%2!=0){
-                    return a.length-i-1;
-                }
+                // if ((a[i]+a[a.length-1-i])%2!=0){
+                return a.length-i-1;
+            }
         }
         if(a.length%2!=0){
             //if the array has odd amount of elements and the middle is an odd number
@@ -98,5 +136,64 @@ public class Ex14 {
         return 0;
     }
 
-}
+    /**
+     * checks a matrix for a path that sums to the given number <br> 
+     * where path can move only right, left, up, and down.<br>
+     * return true if found, false otherwise.<br>
+     * a matrix named path is used to indicate the path used by using 1 value<br>
+     * if path not found then matrix path will have all values set to 0.
+     * @param   mat the matrix to check
+     * @param   sum the given sum to check for
+     * @param path the matrix that shows the path used to get the sum
+     * @return true if path was found
+     */
+    public static boolean findSum (int mat[][], int sum, int path[][]){
+        //ANSWER TO QUESTION 4:
+        //calling recursive method with default index
+        return findSum(mat,sum,path,0,0);
+    }
 
+    private static boolean findSum(int mat[][],int sum,int path[][],int i,int j) {
+        //loops the matrix for starting point
+        //then calls method pathFound to check if theres a path found for the sum
+        if (pathFound(mat, sum, path, i, j,0)) { //if method pathFound return true then returns true and solution was found 
+            return true;
+        } else if (j == mat[0].length - 1) {//move starting point index to next in the line, if starting point got to the end of the line moves to next line
+            j = 0;
+            i++;
+        } else {
+            j++;
+        }
+        if (i == mat[0].length) { //if index got to line out of the matrix returns false, no sollution was found
+            return false;
+        }
+        return findSum(mat,sum,path,i,j);//recursive call to next starting point index
+    }
+
+    private static boolean pathFound(int mat[][],int sum, int path[][],int i, int j, int temp){
+        //checks if path is found from given index moving right,left,down, and up.
+        //marks path[i][j] to 1 as is part of the path sollution
+        if(i<0||i>=mat.length||j<0||j>=mat[0].length||path[i][j]==1)//checks for valid indexes, and the path[i][j] was not mark 1 to not enter same index twice
+            return false;
+        path[i][j]=1; // set 1 in the path  
+        temp+=mat[i][j];// and mat[i][j] to temp value to check with sum
+        boolean result;//holds false if theres not part of the path
+        if(temp==sum)//if temp = sum sollution found and returns true
+            return true;
+        if(temp>sum)//if temp greater them sum matrix in index not part of the path, sets result to false
+            result=false;
+        //otherwise recursive call to the method in all directions id any call returns true then solution was found, return true.
+        else if(pathFound(mat,sum,path,i,j+1,temp)||pathFound(mat,sum,path,i,j-1,temp)
+        ||pathFound(mat,sum,path,i+1,j,temp)||pathFound(mat,sum,path,i-1,j,temp)){
+            return true;
+        } else{//no call returns true,mat in index not part of the path, set result to false.
+            result = false;
+        }
+        if(!(result)){//if result = false sets path in index to 0, to indicate its not part of the path subtracts value of mat in inex from temp
+            path[i][j]=0;
+            temp-=mat[i][j];
+        }
+        return false;// if code got to this line then returns false
+    }
+
+}
