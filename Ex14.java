@@ -1,6 +1,6 @@
 /**
  * Maman 14, answer to questions 1-4
- * 
+ *
  * @author effywo
  * @version 01.06.2019
  */
@@ -30,7 +30,7 @@ public class Ex14 {
         //the method loops through all x1+x2+x3 to check if the match num if match found prints the equation and adds up counter
         //count to hod the count of solutions found, num the given number to check, x1,x2,x3 x values to check equations
         //checking if a equation match is found
-        
+
         if (x1 + x2 + x3 == num) {
             //printing the equation and add to counter
             System.out.println(x1 + "+" + x2 + "+" + x3);
@@ -116,7 +116,7 @@ public class Ex14 {
      */
     public static int what(int a[]){
         //ANSWER TO QUESTION 2:
-        
+
         //Summing up the array to check if it's sum is even
         int sum=0;
         for (int i=0;i<a.length;i++){
@@ -148,7 +148,7 @@ public class Ex14 {
      * if path not found then matrix path will have all values set to 0.
      * @param   mat the matrix to check
      * @param   sum the given sum to check for
-     * @param path the matrix that shows the path used to get the sum
+     * @param   path the matrix that shows the path used to get the sum
      * @return true if path was found
      */
     public static boolean findSum (int mat[][], int sum, int path[][]){
@@ -157,45 +157,45 @@ public class Ex14 {
         return findSum(mat,sum,path,0,0);
     }
 
-    private static boolean findSum(int mat[][],int sum,int path[][],int i,int j) {
+    private static boolean findSum(int mat[][],int sum,int path[][],int row,int col) {
         //loops the matrix for starting point
         //then calls method pathFound to check if theres a path found for the sum
-        if (pathFound(mat, sum, path, i, j,0)) { //if method pathFound return true then returns true and solution was found 
+        if (pathFound(mat, sum, path, row, col,0)) { //if method pathFound return true then returns true and solution was found
             return true;
-        } else if (j == mat[0].length - 1) {//move starting point index to next in the line, if starting point got to the end of the line moves to next line
-            j = 0;
-            i++;
+        } else if (col == mat[0].length - 1) {//move starting point index to next in the line, if starting point got to the end of the line moves to next line
+            col = 0;
+            row++;
         } else {
-            j++;
+            col++;
         }
-        if (i == mat.length) { //if index got to line out of the matrix returns false, no sollution was found
+        if (row == mat.length) { //if index got to line out of the matrix returns false, no solution was found
             return false;
         }
-        return findSum(mat,sum,path,i,j);//recursive call to next starting point index
+        return findSum(mat,sum,path,row,col);//recursive call to next starting point index
     }
 
-    private static boolean pathFound(int mat[][],int sum, int path[][],int i, int j, int temp){
+    private static boolean pathFound(int mat[][],int sum, int path[][],int row, int col, int pathSum){
         //checks if path is found from given index moving right,left,down, and up.
         //marks path[i][j] to 1 as is part of the path sollution
-        if(i<0||i>=mat.length||j<0||j>=mat[0].length||path[i][j]==1)//checks for valid indexes, and the path[i][j] was not mark 1 to not enter same index twice
+        if(row<0||row>=mat.length||col<0||col>=mat[0].length||path[row][col]==1)//checks for valid indexes, and the path[i][j] was not mark 1 to not enter same index twice
             return false;
-        path[i][j]=1; // set 1 in the path  
-        temp+=mat[i][j];// and mat[i][j] to temp value to check with sum
+        path[row][col]=1; // set 1 in the path
+        pathSum+=mat[row][col];// and mat[i][j] to pathSum value to check with sum
         boolean result;//holds false if theres not part of the path
-        if(temp==sum)//if temp = sum sollution found and returns true
+        if(pathSum==sum)//if pathSum = sum sollution found and returns true
             return true;
-        if(temp>sum)//if temp greater them sum matrix in index not part of the path, sets result to false
+        if(pathSum>sum)//if pathSum greater them sum matrix in index not part of the path, sets result to false
             result=false;
-        //otherwise recursive call to the method in all directions id any call returns true then solution was found, return true.
-        else if(pathFound(mat,sum,path,i,j+1,temp)||pathFound(mat,sum,path,i,j-1,temp)
-        ||pathFound(mat,sum,path,i+1,j,temp)||pathFound(mat,sum,path,i-1,j,temp)){
+            //otherwise recursive call to the method in all directions id any call returns true then solution was found, return true.
+        else if(pathFound(mat,sum,path,row,col+1,pathSum)||pathFound(mat,sum,path,row,col-1,pathSum)
+                ||pathFound(mat,sum,path,row+1,col,pathSum)||pathFound(mat,sum,path,row-1,col,pathSum)){
             return true;
         } else{//no call returns true,mat in index not part of the path, set result to false.
             result = false;
         }
-        if(!(result)){//if result = false sets path in index to 0, to indicate its not part of the path subtracts value of mat in inex from temp
-            path[i][j]=0;
-            temp-=mat[i][j];
+        if(!(result)){//if result = false sets path in index to 0, to indicate its not part of the path subtracts value of mat in inex from pathSum
+            path[row][col]=0;
+            pathSum-=mat[row][col];
         }
         return false;// if code got to this line then returns false
     }
