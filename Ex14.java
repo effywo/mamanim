@@ -116,18 +116,22 @@ public class Ex14 {
      */
     public static int what(int a[]){
         //ANSWER TO QUESTION 2:
+        
+        //Suming up the array to check if it's sum is even
         int sum=0;
         for (int i=0;i<a.length;i++){
             sum+=a[i];
         }
-        if (sum%2==0)
+        if (sum%2==0)//if sum is even then the longest even sub array is the full array
             return a.length;
+
         for (int i=0;i<a.length/2;i++){
-            if(a[i]%2!=0||a[a.length-i-1]%2!=0) {
+            if(a[i]%2!=0||a[a.length-i-1]%2!=0) {//checking both ends till an odd number found the returns the length minus 1 of the index.  
                 // if ((a[i]+a[a.length-1-i])%2!=0){
                 return a.length-i-1;
             }
         }
+        //extra test because used < and not >.
         if(a.length%2!=0){
             //if the array has odd amount of elements and the middle is an odd number
             // then the longest array is the length divided by 2 (rounded down)
