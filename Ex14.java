@@ -2,7 +2,7 @@
  * Maman 14, answer to questions 1-4
  *
  * @author effywo
- * @version 01.06.2019
+ * @version 01.06.2019.04
  */
 public class Ex14 {
 
@@ -127,7 +127,6 @@ public class Ex14 {
 
         for (int i=0;i<a.length/2;i++){
             if(a[i]%2!=0||a[a.length-i-1]%2!=0) {//checking both ends till an odd number found the returns the length minus 1 of the index.  
-                // if ((a[i]+a[a.length-1-i])%2!=0){
                 return a.length-i-1;
             }
         }
@@ -176,11 +175,11 @@ public class Ex14 {
 
     private static boolean pathFound(int mat[][],int sum, int path[][],int row, int col, int pathSum){
         //checks if path is found from given index moving right,left,down, and up.
-        //marks path[i][j] to 1 as is part of the path sollution
-        if(row<0||row>=mat.length||col<0||col>=mat[0].length||path[row][col]==1)//checks for valid indexes, and the path[i][j] was not mark 1 to not enter same index twice
+        //marks path[row][col] to 1 as is part of the path sollution
+        if(row<0||row>=mat.length||col<0||col>=mat[0].length||path[row][col]==1)//checks for valid indexes, and the path[row][col] was not mark 1 to not enter same index twice
             return false;
         path[row][col]=1; // set 1 in the path
-        pathSum+=mat[row][col];// and mat[i][j] to pathSum value to check with sum
+        pathSum+=mat[row][col];// and mat[row][col] to pathSum value to check with sum
         boolean result;//holds false if theres not part of the path
         if(pathSum==sum)//if pathSum = sum sollution found and returns true
             return true;
