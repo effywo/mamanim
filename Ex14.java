@@ -117,7 +117,7 @@ public class Ex14 {
     public static int what(int a[]){
         //ANSWER TO QUESTION 2:
         
-        //Suming up the array to check if it's sum is even
+        //Summing up the array to check if it's sum is even
         int sum=0;
         for (int i=0;i<a.length;i++){
             sum+=a[i];
@@ -168,7 +168,7 @@ public class Ex14 {
         } else {
             j++;
         }
-        if (i == mat[0].length) { //if index got to line out of the matrix returns false, no sollution was found
+        if (i == mat.length) { //if index got to line out of the matrix returns false, no sollution was found
             return false;
         }
         return findSum(mat,sum,path,i,j);//recursive call to next starting point index
